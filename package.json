@@ -1,0 +1,21 @@
+{
+  "name":         "paypal-recurring",
+  "description":  "makes creating recurring payments with node.js a bit easier",
+  "author":       "Jay Bryant <jaybryant@tormail.org>",
+  "version":      "1.0.0",
+  "repository":   "git://github.com/jaybryant/paypal-recurring",
+  "license":      "MIT",
+  "main":         "index",
+  "keywords":     ["paypal", "payments", "api", "recurring", "saas"],
+  "dependencies": {
+    "coffee-script": "~1.4.0",
+    "request":       "~2.12.0"
+  },
+  "devDependencies": {
+    "chai":       "*",
+    "coffeelint": "*",
+    "express":    "*",
+    "mocha":      "*",
+    "sinon":      "*"
+  }
+}

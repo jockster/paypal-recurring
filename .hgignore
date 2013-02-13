@@ -1,0 +1,11 @@
+syntax: glob
+.Trash-1000/*
+logs/*
+node_modules/*
+docs/code/*
+tmp/*
+dist/*
+npm_debug.log
+lib-cov/*
+lib-js/*
+
