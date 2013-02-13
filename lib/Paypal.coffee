@@ -179,8 +179,8 @@ class Paypal
 
   # Returns subscription information for an already created subscription by
   # invoking the "GetRecurringPaymentsProfileDetails" method in the PayPal API.
-  # 
-  # The API response contains Profile status (whether or not your customer is paying), 
+  #
+  # The API response contains Profile status (whether or not your customer is paying),
   # how many failed billings to this date, next billing date and more. See PayPal's
   # own API documentation for full info. (Link below)
   #
@@ -221,10 +221,7 @@ class Paypal
   # Modifies the state of an existing subscription by invoking the
   # ManageRecurringPaymentsProfileStatus on the PayPal API.
   #
-  # Note that the API action defaults to "Cancel" when no specific
-  # action is given.
-  # Also, don't forget that you shouldn't 
-
+  # Note that the API action defaults to "cancel" when no action is given.
   #
   # This method takes below arguments:
   #  id (string)         The profile id of the subscription you want to return info on.
