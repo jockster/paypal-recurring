@@ -90,34 +90,12 @@ class Paypal
       SURVEYENABLE:          0
     }, opts)
 
-    
-
     @makeAPIrequest @getParams(opts), (err, response) ->
       return callback err, null, null if err
 
       return callback "Missing token", null, null unless response["TOKEN"]
 
       callback null, response, self.checkoutUrl + response["TOKEN"]
-
-    ###
-
-    request.post @endpointUrl, {form: params}, (e, r, b) ->
-
-      # 1: Check if we got a network error or such
-      if e
-        return callback e, null, null
-
-      # 2: Check if PayPal's API didn't return HTTP 200
-      #    If so, parse the error message and return it.
-      else if r.statusCode isnt 200
-        return callback querystring.parse(b), null, null
-      
-      # 3: No networks error and HTTP returned 200
-      #    Parse the data and return it to the callback
-      else
-        b = querystring.parse(b)
-        callback null, b, self.checkoutUrl + b["TOKEN"]
-    ###
 
   # Creates a recurring payment profile for your customer by invoking the
   # "CreateRecurringPaymentsProfile" method in the PayPal API.
@@ -168,34 +146,13 @@ class Paypal
     # Format the date
     opts["PROFILESTARTDATE"] = @_formatDate(opts["PROFILESTARTDATE"])
     
-    #params = @getParams(opts)
-
     @makeAPIrequest @getParams(opts), (err, response) ->
+      
       return callback err, null if err
 
-      return callback err ? true, null unless response["ACK"] is "Success"
+      return callback err ? true, null if response["ACK"] isnt "Success"
 
-      callback null, response
-
-
-    ###
-    request.post @endpointUrl, {form: params}, (e, r, b) ->
-
-      # 1: Check if we got a network error or such
-      if e
-        return callback e, null
-
-      # 2: The API call didn't return HTTP 200, so parse the error
-      #    and invoke the callback and pass it.
-      else if r.statusCode isnt 200
-        return callback querystring.parse(b) ? r.statusCode, null
-      
-      # 3: No networks error and HTTP returned 200, so invoke our
-      #    callback and return the data.
-      else
-        callback null, querystring.parse(b)
-    ###
-
+      callback err, response
 
   # Returns subscription information for an already created subscription by
   # invoking the "GetRecurringPaymentsProfileDetails" method in the PayPal API.
@@ -221,22 +178,13 @@ class Paypal
       PROFILEID: id
     )
 
-    # Do the API request
-    request.post @endpointUrl, {form: params}, (e, r, b) ->
-
-      # 1: Check if we got a network error or such
-      if e
-        return callback e, null
-
-      # 2: The API call didn't return HTTP 200, so parse the error
-      #    and invoke the callback and pass it.
-      else if r.statusCode isnt 200
-        return callback querystring.parse(b), null
+    @makeAPIrequest params, (err, response) ->
       
-      # 3: No networks error and HTTP returned 200, so invoke our
-      #    callback and return the data.
-      else
-        callback null, querystring.parse(b)
+      return callback err, null if err
+
+      return callback err ? true, null if response["ACK"] isnt "Success"
+
+      callback err, response
 
   # Modifies the state of an existing subscription by invoking the
   # ManageRecurringPaymentsProfileStatus on the PayPal API.
@@ -271,26 +219,17 @@ class Paypal
 
     params["NOTE"] = note if typeof note is "string"
 
-    # Do the API request
-    request.post @endpointUrl, {form: params}, (e, r, b) ->
-
-      # 1: Check if we got a network error or such
-      if e
-        return callback e, null
-
-      # 2: The API call didn't return HTTP 200, so parse the error
-      #    and invoke the callback and pass it.
-      else if r.statusCode isnt 200
-        return callback querystring.parse(b), null
+    @makeAPIrequest params, (err, response) ->
       
-      # 3: No networks error and HTTP returned 200, so invoke our
-      #    callback and return the data.
-      else
-        callback null, querystring.parse(b)
+      return callback err, null if err
+
+      return callback err ? true, null if response["ACK"] isnt "Success"
+
+      callback err, response
 
   # Performs the actual API request to the PayPal API endpoint.
   #
-  # Mock this function to test this class when integrating with your 
+  # Mock this function to test this class when integrating with your
   # own code
   #
   makeAPIrequest: (params, callback) ->
@@ -305,11 +244,8 @@ class Paypal
       if response.statusCode isnt 200
         return callback querystring.parse(body) ? response.statusCode, null
 
-      # Sailing smoothly. Parse body and return.
+      # Sailing smoothly. Parse query-string formatted body and return.
       callback null, querystring.parse(body)
-
-
-
 
   # Merges two objects passed as arguments.
   # Note that any property in the object passed as second argument will

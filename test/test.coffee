@@ -358,14 +358,14 @@ describe "getSubscription()", ->
     
   it "Handles a correct/successful request properly", (done) ->
 
-    sinon.stub request, "post", -> arguments[2](false, {statusCode: 200}, "QUERY=STRING")
+    sinon.stub request, "post", -> arguments[2](false, {statusCode: 200}, "ACK=Success")
 
     checkoutUrl = @p.checkoutUrl
 
     @p.getSubscription "profileid", (error, data) ->
       assert.isNull    error
       assert.ok        data
-      assert.deepEqual data, QUERY: "STRING"
+      assert.deepEqual data, ACK: "Success"
       done()
 
 describe "modifySubscription()", ->
@@ -418,14 +418,14 @@ describe "modifySubscription()", ->
     
   it "Handles a correct/successful request properly", (done) ->
 
-    sinon.stub request, "post", -> arguments[2](false, {statusCode: 200}, "QUERY=STRING")
+    sinon.stub request, "post", -> arguments[2](false, {statusCode: 200}, "ACK=Success")
 
     checkoutUrl = @p.checkoutUrl
 
     @p.modifySubscription "profileid", (error, data) ->
       assert.isNull    error
       assert.ok        data
-      assert.deepEqual data, QUERY: "STRING"
+      assert.deepEqual data, ACK: "Success"
       done()
 
   describe "Uses correct params", ->

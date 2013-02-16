@@ -87,8 +87,7 @@ app.get "/purchase/success", (req, res) ->
 
   paypal.createSubscription token, payerid, params, (error, data) ->
 
-    if !error and data["ACK"] is "Success"
-      
+    if !error
       # We've just turned our user into a subscribing customer. Chapeau!
       # Show some links so that we can fetch some data about the subscription
       # or to cancel the subscription.
@@ -118,11 +117,10 @@ app.get "/subscription/:pid/info", (req, res) ->
   # Fetch subscription data based upon given PROFILEID
   paypal.getSubscription pid, (error, data) ->
 
-    if !error and data["ACK"] isnt "Failure"
-      res.send "<pre>" + JSON.stringify(data, null, 4) + "</pre>"
-    else
-      # PayPal's API can be down or more probably, you provided an invalid PROFILEID. 
-      res.send "Your subscription doesn't exist or something just went wrong"
+    return res.json data if !error
+
+    res.send "Your subscription doesn't exist or we couldn't reach PayPal's API right now"
+
 
 app.get "/subscription/:pid/cancel", (req, res) ->
 

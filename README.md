@@ -231,11 +231,14 @@ Feel free to go wild if you are missing any features in this package. Just make 
   
     make test
 
-
-Roadmap
+Changelog
 ============
-* Separate method that tunnels all API requests to make testing easier
-* Test for data["ACK"] === Success @ createSubscription() + authenticate() to make error checking easier
+
+**v1.1.0:**
+
+* The class does now validates API results to keep you from writing `if (response["ACK"] === "Success")` to manually validate every API action.
+
+* Every API action is now tunneled through the `makeAPIrequest()`-method to make it easy to debug/unit test the class when integrating with your own code.
 
 
 License
