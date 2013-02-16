@@ -98,7 +98,6 @@ describe "_formatDate()", ->
 
   it "Returns a valid date", ->
     d = @p._formatDate(new Date())
-    console.log d
     assert.ok util.isDate(new Date(d))  
 
 describe "getParams", ->
@@ -186,12 +185,13 @@ describe "authenticate()", ->
 
   it "Handles an non-HTTP-200 response properly", (done) ->
 
-    sinon.stub request, "post", -> arguments[2](false, {statusCode: 501}, "ERROR=Darth%20vader%20is%20angry")
+    sinon.stub request, "post", -> arguments[2](false, {statusCode: 500}, "ERROR=Darth%20vader%20is%20angry")
 
     @p.authenticate @requiredParams, (error, data, url) ->
       assert.deepEqual error, {ERROR: "Darth vader is angry"}
-      assert.isNull    data
-      assert.isNull    url
+      #assert.equal  error, 500
+      assert.isNull data
+      assert.isNull url
       done()    
 
   it "Handles a correct/successful request properly", (done) ->
@@ -292,20 +292,21 @@ describe "createSubscription()", ->
     checkoutUrl = @p.checkoutUrl
 
     @p.createSubscription "token", "payerid", @requiredParams, (error, data) ->
+      #assert.deepEqu
       assert.deepEqual error, QUERY: "STRING"
       assert.isNull    data
       done()      
     
   it "Handles a correct/successful request properly", (done) ->
 
-    sinon.stub request, "post", -> arguments[2](false, {statusCode: 200}, "QUERY=STRING")
+    sinon.stub request, "post", -> arguments[2](false, {statusCode: 200}, "ACK=Success")
 
     checkoutUrl = @p.checkoutUrl
 
     @p.createSubscription "token", "payerid", @requiredParams, (error, data) ->
       assert.isNull    error
       assert.ok        data
-      assert.deepEqual data, QUERY: "STRING"
+      assert.deepEqual data, ACK: "Success"
       done()
 
 describe "getSubscription()", ->

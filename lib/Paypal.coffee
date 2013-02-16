@@ -90,7 +90,16 @@ class Paypal
       SURVEYENABLE:          0
     }, opts)
 
-    params = @getParams(opts)
+    
+
+    @makeAPIrequest @getParams(opts), (err, response) ->
+      return callback err, null, null if err
+
+      return callback "Missing token", null, null unless response["TOKEN"]
+
+      callback null, response, self.checkoutUrl + response["TOKEN"]
+
+    ###
 
     request.post @endpointUrl, {form: params}, (e, r, b) ->
 
@@ -108,6 +117,7 @@ class Paypal
       else
         b = querystring.parse(b)
         callback null, b, self.checkoutUrl + b["TOKEN"]
+    ###
 
   # Creates a recurring payment profile for your customer by invoking the
   # "CreateRecurringPaymentsProfile" method in the PayPal API.
@@ -158,8 +168,17 @@ class Paypal
     # Format the date
     opts["PROFILESTARTDATE"] = @_formatDate(opts["PROFILESTARTDATE"])
     
-    params = @getParams(opts)
+    #params = @getParams(opts)
 
+    @makeAPIrequest @getParams(opts), (err, response) ->
+      return callback err, null if err
+
+      return callback err ? true, null unless response["ACK"] is "Success"
+
+      callback null, response
+
+
+    ###
     request.post @endpointUrl, {form: params}, (e, r, b) ->
 
       # 1: Check if we got a network error or such
@@ -169,12 +188,13 @@ class Paypal
       # 2: The API call didn't return HTTP 200, so parse the error
       #    and invoke the callback and pass it.
       else if r.statusCode isnt 200
-        return callback querystring.parse(b), null
+        return callback querystring.parse(b) ? r.statusCode, null
       
       # 3: No networks error and HTTP returned 200, so invoke our
       #    callback and return the data.
       else
         callback null, querystring.parse(b)
+    ###
 
 
   # Returns subscription information for an already created subscription by
@@ -267,6 +287,29 @@ class Paypal
       #    callback and return the data.
       else
         callback null, querystring.parse(b)
+
+  # Performs the actual API request to the PayPal API endpoint.
+  #
+  # Mock this function to test this class when integrating with your 
+  # own code
+  #
+  makeAPIrequest: (params, callback) ->
+
+    request.post @endpointUrl, {form: params}, (err, response, body) ->
+
+      # We got an error. Network error maybe. Interwebs broken and such.
+      if err
+        return callback err, null
+
+      # Non HTTP-200 response from API
+      if response.statusCode isnt 200
+        return callback querystring.parse(body) ? response.statusCode, null
+
+      # Sailing smoothly. Parse body and return.
+      callback null, querystring.parse(body)
+
+
+
 
   # Merges two objects passed as arguments.
   # Note that any property in the object passed as second argument will

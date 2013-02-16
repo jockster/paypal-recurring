@@ -15,6 +15,7 @@
     "chai":       "*",
     "coffeelint": "*",
     "express":    "*",
+    "longjohn":   "*",
     "mocha":      "*",
     "sinon":      "*"
   }
