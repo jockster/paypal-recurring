@@ -232,6 +232,12 @@ Feel free to go wild if you are missing any features in this package. Just make 
     make test
 
 
+Roadmap
+============
+* Separate method that tunnels all API requests to make testing easier
+* Test for data["ACK"] === Success @ createSubscription() + authenticate() to make error checking easier
+
+
 License
 ============
 
