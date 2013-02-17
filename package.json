@@ -8,8 +8,8 @@
   "main":         "index",
   "keywords":     ["paypal", "payments", "api", "recurring", "saas"],
   "dependencies": {
-    "coffee-script": "~1.4.0",
-    "request":       "~2.12.0"
+    "coffee-script": "1.4.x",
+    "request":       "2.12.x"
   },
   "devDependencies": {
     "chai":       "*",
