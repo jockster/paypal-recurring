@@ -30,7 +30,7 @@ class Paypal
 
     if env is "production"
       @endpointUrl = "https://api-3t.paypal.com/nvp"
-      @checkoutUrl = "https://www.paypal.com/cgi?bin/webscr?cmd=_express-checkout&token="
+      @checkoutUrl = "https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token="
     else
       @endpointUrl = "https://api-3t.sandbox.paypal.com/nvp"
       @checkoutUrl = "https://www.sandbox.paypal.com/webscr?cmd=_express-checkout&token="
