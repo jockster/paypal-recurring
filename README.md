@@ -137,8 +137,8 @@ Your callback function will be passed two arguments upon API response; `error` &
 ```js
 // Create a subscription of 10 USD every month
 paypal.createSubscription('token','payerid',{
-  AMT:              10
-  DESC:             "A description of this subscription"
+  AMT:              10,
+  DESC:             "A description of this subscription",
   BILLINGPERIOD:    "Month",
   BILLINGFREQUENCY: 1,
 }, function(err, data) {
