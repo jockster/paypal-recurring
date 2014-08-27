@@ -21,7 +21,7 @@ in your terminal:
   
     make demo
 
-If you want to read up on PayPal's API documentation for recurring billing, visit [this page](https://www.x.com/developers/paypal/documentation-tools/express-checkout/integration-guide/ECRecurringPayments).
+If you want to read up on PayPal's API documentation for recurring billing, visit [this page](https://developer.paypal.com/webapps/developer/docs/classic/express-checkout/integration-guide/ECRecurringPayments/).
 
 
 ###Introduction & converting users into customers
@@ -112,7 +112,7 @@ arguments and are set as default inside the `SetExpressCheckout` method to suit
 most online subscription businesses. Override any of the defaults by including
 that key/value in the `options` hash.*
 
-Please visit [this page](https://www.x.com/developers/paypal/documentation-tools/api/setexpresscheckout-api-operation-nvp) for official PayPal API
+Please visit [this page](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/SetExpressCheckout_API_Operation_NVP/) for official PayPal API
 documentation of the `SetExpressCheckout` action to learn how you can customize the API call to suit your business.
 
 
@@ -167,7 +167,7 @@ BILLINGPERIOD:    "Month",
 BILLINGFREQUENCY: 1
 ```
 
-Please visit [this page](https://www.x.com/developers/paypal/documentation-tools/api/createrecurringpaymentsprofile-api-operation-nvp)
+Please visit [this page](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/CreateRecurringPaymentsProfile_API_Operation_NVP/)
 for official PayPal API documentation of the `CreateRecurringPaymentsProfile` action to learn how you can customize the API call to suit your business.
 
 
@@ -184,7 +184,7 @@ paypal.getSubscription('subscriptionid', function(err, data) {
   if (!err) { console.log(data)}
 });
 ```
-Please visit [this page](https://www.x.com/developers/paypal/documentation-tools/api/getrecurringpaymentsprofiledetails-api-operation-nvp)
+Please visit [this page](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/GetRecurringPaymentsProfileDetails_API_Operation_NVP/)
 for official PayPal API documentation of the `GetRecurringPaymentsProfileDetails` action.
 
 
@@ -204,7 +204,7 @@ paypal.modifySubscription('subscriptionid', 'Cancel' , function(err, data) {
   if (!err) { res.send "Your subscription was cancelled" }
 });
 ```
-Please visit [this page](https://www.x.com/developers/paypal/documentation-tools/api/managerecurringpaymentsprofilestatus-api-operation-nvp)
+Please visit [this page](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/ManageRecurringPaymentsProfileStatus_API_Operation_NVP/)
 for official PayPal API documentation of the `ManageRecurringPaymentsProfileStatus` action.
 
 Pitfalls
