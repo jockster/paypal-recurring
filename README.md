@@ -41,10 +41,10 @@ Documentation
 
 ## Constructor
 
-The constructor takes four arguments: `username`, `password`, `signature` & `enviroment`.  
-Username, password and signature are all your [PayPal API credentials](https://developer.paypal.com)
+The constructor takes two arguments: `credentials` & `enviroment`.
+Username, password and signature for the credentials are all your [PayPal API credentials](https://developer.paypal.com)
 
-The default environment uses the PayPal Sandbox API to allow testing. When going live, pass `environment: "production"` to the constructor. This will create real subscriptions, so use with care.
+The default environment uses the PayPal Sandbox API to allow testing. When going live, pass `"production"` as a second parameter to the constructor. This will create real subscriptions, so use with care.
 
 
 ```js
@@ -54,8 +54,9 @@ var Paypal = require('paypal-recurring'),
       username:  "info@example.com",
       password:  "****",
       signature: "****",
-      // environment: "production" // USE WITH CARE!
-    });
+    }
+    //, "production" // USE WITH CARE!
+    );
 ```
 
 ## .authenticate(options, callback)
