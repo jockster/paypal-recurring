@@ -154,6 +154,61 @@ class Paypal
 
       callback err, response
 
+
+  # Creates a onetime payment profile for your customer by invoking the
+  # "DoExpressCheckoutPayment" method in the PayPal API.
+  #
+  # To do this, you need to pass the function the unique token that you
+  # recieve as a querystring appended to your RETURNURL sent to PayPal
+  # using the above authenticate() method.
+  #
+  # This method takes below arguments:
+  #  token (string)      The token as described above
+  #  payerid (string)    The PayPal ID of the owner of the to-become subscriber
+  #  opts  (object)      The object containing the options you want to send to PayPal
+  #  callback (function) The Callback function that is invoked on API return
+  #
+  # Note that if you do not pass a PROFILESTARTDATE in the ops object, a PROFILESTARTDATE
+  # with current time will be used to start the recurring payment immediately.
+  #
+  # Related API documentation:
+  # https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/DoExpressCheckoutPayment_API_Operation_NVP/
+  #
+  createPayment: (token, payerid, opts, callback) ->
+
+    self = @
+
+    # Check for required arguments and params and throw error(s) if they aren't available
+    throw new Error "Missing required token" unless token
+    throw new Error "Missing payerid"        unless payerid
+
+    reqs = [
+      "DESC",
+      "PAYMENTREQUEST_0_AMT"
+    ]
+
+    for i in reqs
+      throw new Error "Missing param " + i if !opts[i]
+
+    # Merge given params with default params for this type of API request.
+    opts = @_merge({
+      METHOD:                           "DoExpressCheckoutPayment"
+      TOKEN:                            token
+      PAYERID:                          payerid
+      PAYMENTREQUEST_0_PAYMENTACTION:   "Sale"
+      PAYMENTREQUEST_0_AMT:         0
+    }, opts)
+
+    console.log opts
+
+    @makeAPIrequest @getParams(opts), (err, response) ->
+
+      return callback err, null if err
+
+      return callback err ? true, null if response["ACK"] isnt "Success"
+
+      callback err, response
+
   # Returns subscription information for an already created subscription by
   # invoking the "GetRecurringPaymentsProfileDetails" method in the PayPal API.
   #
