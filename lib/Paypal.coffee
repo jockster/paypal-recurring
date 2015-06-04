@@ -85,7 +85,7 @@ class Paypal
       ADDROVERRIDE:          0
       ALLOWNOTE:             0
       BUYEREMAILOPTINENABLE: 1
-      L_BILLINGTYPE0:        "MerchantInitiatedBillingSingleAgreement"
+      L_BILLINGTYPE0:        "RecurringPayments"
       NOSHIPPING:            1
       SURVEYENABLE:          0
     }, opts)
