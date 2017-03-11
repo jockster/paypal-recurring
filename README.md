@@ -1,10 +1,8 @@
-paypal-recurring
+paypal-recurring-se
 ============
 This package makes integration of PayPal's recurring payments easier in your next project using `node.js`.
 This version fixes problems with profile start dates and removes the coffee script, replacing it with
 plain JavaScript.
-
-
 
 Installation
 ============
