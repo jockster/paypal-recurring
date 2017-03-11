@@ -7,7 +7,7 @@ plain JavaScript.
 Installation
 ============
   
-    npm install --save paypal-recurring
+    npm install --save paypal-recurring-se
 
 
 Introduction
