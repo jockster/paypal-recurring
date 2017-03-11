@@ -1,21 +1,13 @@
 {
-  "name":         "paypal-recurring",
-  "description":  "makes creating recurring payments with node.js a bit easier",
-  "author":       "Jay Bryant <jaybryant@tormail.org>",
-  "version":      "1.1.0",
-  "repository":   "git://github.com/jaybryant/paypal-recurring",
+  "name":         "paypal-recurring-se",
+  "description":  "Makes creating recurring payments with node.js easier. This version fixes issues with profile start dates and removes the coffee script, replacing it with plain JavaScript.",
+  "author":       "Andrew D <retroburst@gmail.com>, Jay Bryant <jaybryant@tormail.org>",
+  "version":      "2.0.0",
+  "repository":   "git://github.com/retroburst/paypal-recurring-se",
   "license":      "MIT",
   "main":         "index",
   "keywords":     ["paypal", "payments", "api", "recurring", "saas"],
   "dependencies": {
-    "coffee-script": "1.4.x",
     "request":       "2.12.x"
-  },
-  "devDependencies": {
-    "chai":       "*",
-    "coffeelint": "*",
-    "express":    "*",
-    "mocha":      "*",
-    "sinon":      "*"
   }
 }

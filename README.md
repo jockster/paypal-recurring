@@ -1,13 +1,15 @@
 paypal-recurring
 ============
-This package makes integration of PayPal's recurring payments easier in your next project using `node.js`.  
-This package will be featured in my upcoming book about building your next SaaS. More information to follow.
+This package makes integration of PayPal's recurring payments easier in your next project using `node.js`.
+This version fixes problems with profile start dates and removes the coffee script, replacing it with
+plain JavaScript.
+
 
 
 Installation
 ============
   
-    npm install paypal-recurring
+    npm install --save paypal-recurring
 
 
 Introduction
@@ -224,27 +226,7 @@ Instead, make sure to set the `PROFILESTARTDATE` ahead in time according to when
     var d = new Date()
     d.setMonth(d.getMonth()+1)
 
-
-Development
-============
-
-Feel free to go wild if you are missing any features in this package. Just make sure to write proper tests and that they pass:
-  
-    make test
-
-
-Changelog
-============
-
-**v1.1.0:**
-
-* The class does now validates API results to keep you from writing `if (response["ACK"] === "Success")` to manually validate every API action.
-
-* Every API action is now tunneled through the `makeAPIrequest()`-method to make it easy to debug/unit test the class when integrating with your own code.
-
-
 License
 ============
 
 MIT license. See the `LICENSE` file for details.  
-Copyright (c) 2013 Jay Bryant. All rights reserved.
